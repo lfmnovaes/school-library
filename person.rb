@@ -10,7 +10,7 @@ class Person
     @name = name
     @age = age
     @parent_permission = parent_permission
-    @corrector = Corrector.new
+    @corrector = corrector
   end
 
   def can_use_services?
