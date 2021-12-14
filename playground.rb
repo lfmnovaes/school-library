@@ -21,3 +21,8 @@ p student1.play_hooky
 teacher1 = Teacher.new(specialization: 'Math', age: 33)
 p teacher1
 p teacher1.can_use_services?
+
+person4 = Person.new(age: 18, name: 'aaabbbcccdddeee')
+p person4
+p person4.validate_name?
+p person4
