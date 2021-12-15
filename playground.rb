@@ -1,28 +1,27 @@
 require './person'
 require './student'
 require './teacher'
+require './classroom'
 
-person1 = Person.new(age: 42, name: 'John Doe', parent_permission: false)
-p person1
-p person1.can_use_services?
+person1 = Person.new(42, 'John Doe', false)
 
-person2 = Person.new(age: 17, name: 'Maria', parent_permission: false)
-p person2
-p person2.can_use_services?
+class1 = Classroom.new('3A')
 
-person3 = Person.new(age: 16, parent_permission: true)
-p person3
-p person3.can_use_services?
-
-student1 = Student.new(classroom: '3A', age: 18, name: 'Jose', parent_permission: false)
+student1 = Student.new(18, 'Jose', false)
+student2 = Student.new(17, 'Maria', false)
+student3 = Student.new(16, true)
 p student1
 p student1.play_hooky
+class1.add_student(student1)
+p student1.classroom.label
 
-teacher1 = Teacher.new(specialization: 'Math', age: 33)
+p class1.students
+
+teacher1 = Teacher.new('Math', 33)
 p teacher1
 p teacher1.can_use_services?
 
-person4 = Person.new(age: 18, name: 'aaabbbcccdddeee')
-p person4
-p person4.validate_name?
-p person4
+person2 = Person.new(18, 'aaabbbcccdddeee')
+p person2
+p person2.validate_name?
+p person2
