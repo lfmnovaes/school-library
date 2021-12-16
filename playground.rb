@@ -1,15 +1,17 @@
-require './person'
 require './student'
 require './teacher'
 require './classroom'
+require './book'
+require './rental'
 
-person1 = Person.new(42, 'John Doe', false)
+teacher1 = Teacher.new(specialization: 'Math', age: 42, name: 'John Doe')
+p teacher1
 
 class1 = Classroom.new('3A')
 
-student1 = Student.new(18, 'Jose', false)
-student2 = Student.new(17, 'Maria', false)
-student3 = Student.new(16, true)
+student1 = Student.new(age: 18, name: 'Jose', parent_permission: false)
+student2 = Student.new(age: 17, name: 'Maria', parent_permission: false)
+student3 = Student.new(age: 16)
 p student1
 p student1.play_hooky
 class1.add_student(student1)
@@ -17,11 +19,15 @@ p student1.classroom.label
 
 p class1.students
 
-teacher1 = Teacher.new('Math', 33)
-p teacher1
-p teacher1.can_use_services?
+book1 = Book.new('Lorem Ipsum', 'Latin')
+book2 = Book.new('LOTR', 'JRR Tolkien')
 
-person2 = Person.new(18, 'aaabbbcccdddeee')
-p person2
-p person2.validate_name?
-p person2
+Rental.new('2020-01-01', book1, student1)
+Rental.new('2021-05-13', book2, student3)
+Rental.new('2020-04-03', book1, student2)
+Rental.new('2021-12-16', book2, student3)
+
+p(book1.rentals.map { |rental| "#{rental.date} - #{rental.book.title} - #{rental.person.name}" })
+p(book2.rentals.map { |rental| "#{rental.date} - #{rental.book.title} - #{rental.person.name}" })
+p(student1.rentals.map { |rental| "#{rental.book.title} - #{rental.book.author}" })
+p(student3.rentals.map { |rental| "#{rental.book.title} - #{rental.book.author}" })
