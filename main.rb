@@ -60,7 +60,11 @@ class App
   end
 
   def list_people
-    puts 'List people'
+    if @people.empty?
+      puts 'There is no one registered in the library'
+    else
+      @people.each { |person| puts person }
+    end
   end
 
   def create_person
@@ -75,8 +79,31 @@ class App
       puts 'Not a valid option'
       return
     end
-
     puts 'Person created successfully'
+  end
+
+  def create_student
+    print 'Age: '
+    age = gets.chomp
+    print 'Name: '
+    name = gets.chomp
+    print 'Has parent permission? [Y/N]: '
+    pp = gets.chomp
+    @people.push(Student.new(name: name, age: age, parent_permission: translate_answer(pp.downcase)))
+  end
+
+  def create_teacher
+    print 'Age: '
+    age = gets.chomp
+    print 'Name: '
+    name = gets.chomp
+    print 'Specialization: '
+    specialization = gets.chomp
+    @people.push(Teacher.new(name: name, age: age, specialization: specialization))
+  end
+
+  def translate_answer(ans)
+    ans == 'yes' || ans == 'y' ? true : false
   end
 
   def create_book
@@ -89,14 +116,6 @@ class App
 
   def list_rentals
     puts 'List rental'
-  end
-
-  def create_student
-    puts 'Create student'
-  end
-
-  def create_teacher
-    puts 'Create teacher'
   end
 end
 

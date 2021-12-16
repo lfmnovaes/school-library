@@ -27,6 +27,10 @@ class Person
     @name = @corrector.correct_name(@name)
   end
 
+  def to_s
+    "Name: #{@name}, Age: #{@age}, ID: #{@id}"
+  end
+
   private
 
   def of_age?
