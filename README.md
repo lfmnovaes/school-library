@@ -2,7 +2,7 @@
 
 # School Library
 
-> This project is a working in progress school library application.
+> A pure Ruby project with a basic UI that simulates a School Library which people, books, and rentals can be added. Also can list all registered books, people, and rentals per person.
 
 ## Prerequisites
 
@@ -15,7 +15,7 @@ Ruby >= 3.0.0
    git clone https://github.com/lfmnovaes/school-library.git
    ```
 - Go to the cloned directory with `cd school-library`
-- With Ruby installed in your environment, you can run `ruby playground.rb` to see some tests going on with the code
+- With Ruby installed in your environment, you can run `ruby main.rb` to see some tests going on with the code
 
 ## Author
 
