@@ -15,7 +15,7 @@ class App
       '3' => 'Create a person',
       '4' => 'Create a book',
       '5' => 'Create a rental',
-      '6' => 'List all rentals for a given person id',
+      '6' => 'List all rentals for a given person',
       '7' => 'Exit'
     }
   end
@@ -56,7 +56,11 @@ class App
   private
 
   def list_books
-    puts 'List books'
+    if @books.empty?
+      puts 'There is no book registered in the library'
+    else
+      @books.each { |book| puts book }
+    end
   end
 
   def list_people
@@ -107,15 +111,36 @@ class App
   end
 
   def create_book
-    puts 'Create book'
+    print 'Title: '
+    title = gets.chomp
+    print 'Author: '
+    author = gets.chomp
+    @books.push(Book.new(title, author))
+    puts 'Book created successfully'
   end
 
   def create_rental
-    puts 'Create rental'
+    puts 'Select a book from the following list by number'
+    @books.each_with_index { |book, index| puts "#{index}) #{book}" }
+    book_i = gets.chomp
+    puts ''
+    puts 'Select a person from the following list by number (not id)'
+    @people.each_with_index { |person, index| puts "#{index}) #{person}" }
+    person_i = gets.chomp
+    puts ''
+    print 'Date: '
+    date = gets.chomp
+    @rentals.push(Rental.new(date, @books[book_i.to_i], @people[person_i.to_i]))
+    puts 'Rental created successfully'
   end
 
   def list_rentals
-    puts 'List rental'
+    puts 'Select a person from the following list by number (not id)'
+    @people.each_with_index { |person, index| puts "#{index}) #{person}" }
+    person_i = gets.chomp
+    puts ''
+    puts 'Rentals:'
+    @rentals.each { |rental| puts rental if rental.person.id == @people[person_i.to_i].id }
   end
 end
 
