@@ -107,7 +107,7 @@ class App
   end
 
   def translate_answer(ans)
-    ans == 'yes' || ans == 'y' ? true : false
+    %w[yes y].include?(ans)
   end
 
   def create_book
