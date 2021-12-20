@@ -29,11 +29,15 @@ class HandleMenuChoice
   def create_person
     print 'Do you want to create a student (1) or a teacher (2)? [Input the number]: '
     option = gets.chomp
+    print 'Age: '
+    age = gets.chomp
+    print 'Name: '
+    name = gets.chomp
     case option
     when '1'
-      create_student
+      create_student(age, name)
     when '2'
-      create_teacher
+      create_teacher(age, name)
     else
       puts 'Not a valid option'
       return
@@ -41,21 +45,13 @@ class HandleMenuChoice
     puts 'Person created successfully'
   end
 
-  def create_student
-    print 'Age: '
-    age = gets.chomp
-    print 'Name: '
-    name = gets.chomp
+  def create_student(age, name)
     print 'Has parent permission? [Y/N]: '
     pp = gets.chomp
     @people.push(Student.new(name: name, age: age, parent_permission: translate_answer(pp.downcase)))
   end
 
-  def create_teacher
-    print 'Age: '
-    age = gets.chomp
-    print 'Name: '
-    name = gets.chomp
+  def create_teacher(age, name)
     print 'Specialization: '
     specialization = gets.chomp
     @people.push(Teacher.new(name: name, age: age, specialization: specialization))

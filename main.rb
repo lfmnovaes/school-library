@@ -1,4 +1,4 @@
-require './choice.rb'
+require './choice'
 
 class App
   def initialize
@@ -11,7 +11,7 @@ class App
       '6' => 'List all rentals for a given person',
       '7' => 'Exit'
     }
-    @handle_menu_choices = HandleMenuChoice.new()
+    @handle_menu_choices = HandleMenuChoice.new
   end
 
   def run
