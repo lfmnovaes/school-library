@@ -7,7 +7,7 @@ class HandleMenuChoice
   def initialize
     @people = HandlePerson.new
     @books = HandleBooks.new
-    @rentals = []
+    @rentals = HandleRentals.new
   end
 
   def list_books
@@ -16,6 +16,13 @@ class HandleMenuChoice
 
   def list_people
     @people.list_people
+  end
+
+  def list_rentals
+    puts 'Select a person from the following list by number (not id)'
+    @people.list_people_with_id
+    person_i = gets.chomp
+    @rentals.get_rentals(@people.get_id_from_index(person_i.to_i))
   end
 
   def create_person
@@ -61,17 +68,8 @@ class HandleMenuChoice
     puts ''
     print 'Date: '
     date = gets.chomp
-    @rentals.push(Rental.new(date, @books[book_i.to_i], @people[person_i.to_i]))
+    @rentals.add_rental(date, @books.get_book_from_index(book_i.to_i), @people.get_person_from_index(person_i.to_i))
     puts 'Rental created successfully'
-  end
-
-  def list_rentals
-    puts 'Select a person from the following list by number (not id)'
-    @people.list_people_with_id
-    person_i = gets.chomp
-    puts ''
-    puts 'Rentals:'
-    @rentals.each { |rental| puts rental if rental.person.id == @people[person_i.to_i].id }
   end
 end
 
@@ -111,6 +109,10 @@ class HandlePerson
   def get_id_from_index(index)
     @people[index].id
   end
+
+  def get_person_from_index(index)
+    @people[index]
+  end
 end
 
 class HandleBooks
@@ -138,7 +140,23 @@ class HandleBooks
     end
   end
 
-  def get_id_from_index(index)
-    @books[index].id
+  def get_book_from_index(index)
+    @books[index]
+  end
+end
+
+class HandleRentals
+  def initialize
+    @rentals = []
+  end
+
+  def add_rental(date, book, person)
+    @rentals.push(Rental.new(date, book, person))
+  end
+
+  def get_rentals(person_id)
+    puts ''
+    puts 'Rentals:'
+    @rentals.each { |rental| puts rental if rental.person.id == person_id }
   end
 end
