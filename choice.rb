@@ -20,7 +20,7 @@ class HandleMenuChoice
 
   def list_rentals
     puts 'Select a person from the following list by number (not id)'
-    @people.list_people_with_id
+    @people.list_people_with_index
     person_i = gets.chomp
     @rentals.get_rentals(@people.get_id_from_index(person_i.to_i))
   end
@@ -59,11 +59,11 @@ class HandleMenuChoice
 
   def create_rental
     puts 'Select a book from the following list by number'
-    @books.list_books_with_id
+    @books.list_books_with_index
     book_i = gets.chomp
     puts ''
     puts 'Select a person from the following list by number (not id)'
-    @people.list_people_with_id
+    @people.list_people_with_index
     person_i = gets.chomp
     puts ''
     print 'Date: '
@@ -98,7 +98,7 @@ class HandlePerson
     end
   end
 
-  def list_people_with_id
+  def list_people_with_index
     if @people.empty?
       puts 'There is no one registered in the library'
     else
@@ -132,7 +132,7 @@ class HandleBooks
     end
   end
 
-  def list_books_with_id
+  def list_books_with_index
     if @books.empty?
       puts 'There is no book registered in the library'
     else
