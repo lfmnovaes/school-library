@@ -16,9 +16,9 @@ class HandleMenuChoice
   end
 
   def saving_exit
-      puts 'Saving'
-      persistor = Persistor.new
-      persistor.save(people: people, books: books, rentals: rentals)
+    puts 'Saving'
+    @persistor = Persistor.new
+    @persistor.save(people: @people.people, books: @books.books, rentals: @rentals.rentals)
   end
 
   def list_books
@@ -47,11 +47,11 @@ class HandleMenuChoice
     when '1'
       print 'Has parent permission? [Y/N]: '
       pp = gets.chomp
-      @people.create_student(age, name, pp)
+      @people.create_student(nil, age, name, pp)
     when '2'
       print 'Specialization: '
       specialization = gets.chomp
-      @people.create_teacher(age, name, specialization)
+      @people.create_teacher(nil, age, name, specialization)
     else
       puts 'Not a valid option'
       return
@@ -86,6 +86,7 @@ end
 
 class HandlePerson
   attr_reader :people
+
   def initialize
     @people = []
   end
@@ -94,7 +95,7 @@ class HandlePerson
     file = 'people.json'
     if File.exist? file
       JSON.parse(File.read(file)).map do |p|
-        if p['specialization'] == nil
+        if p['specialization'].nil?
           create_student(p['id'], p['age'], p['name'], p['pp'].to_s)
         else
           create_teacher(p['id'], p['age'], p['name'], p['specialization'])
@@ -144,6 +145,7 @@ end
 
 class HandleBooks
   attr_reader :books
+
   def initialize
     @books = []
   end
@@ -152,8 +154,8 @@ class HandleBooks
     file = 'books.json'
     if File.exist? file
       JSON.parse(File.read(file)).map do |b|
-        add_book(b['title'], b['author']) 
-      end  
+        add_book(b['title'], b['author'])
+      end
     else
       []
     end
@@ -186,6 +188,7 @@ end
 
 class HandleRentals
   attr_reader :rentals
+
   def initialize
     @rentals = []
   end
@@ -211,9 +214,5 @@ class HandleRentals
     puts ''
     puts 'Rentals:'
     @rentals.each { |rental| puts rental if rental.person.id == person_id }
-  end
-
-  def all_rentals
-    @rentals.each { |rental| puts rental }
   end
 end

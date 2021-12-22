@@ -7,7 +7,7 @@ class Person
   attr_reader :id
 
   def initialize(id:, age:, name: 'Unknown', parent_permission: true)
-    @id = id || SecureRandom.uuid 
+    @id = id || SecureRandom.uuid
     @name = name
     @age = age
     @parent_permission = parent_permission
@@ -31,12 +31,12 @@ class Person
     "Name: #{@name}, Age: #{@age}, ID: #{@id}"
   end
 
-  def to_json(*)
+  def to_json(_options = {})
     {
       'id' => @id,
       'age' => @age,
       'name' => @name
-    }.to_json
+    }
   end
 
   private

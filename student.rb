@@ -22,13 +22,13 @@ class Student < Person
     "[Student] #{super}"
   end
 
-  def to_json(*)
+  def to_json(_options = {})
     {
       'id' => @id,
       'age' => @age,
       'name' => @name,
       'pp' => @parent_permission,
       'classroom' => @classroom
-    }.to_json
+    }
   end
 end
