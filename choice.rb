@@ -3,12 +3,22 @@ require './teacher'
 require './book'
 require './rental'
 require 'json'
+require './persistor'
 
 class HandleMenuChoice
   def initialize
     @people = HandlePerson.new
+    @people.read_people_json
     @books = HandleBooks.new
+    @books.read_books_json
     @rentals = HandleRentals.new
+    @rentals.read_rentals_json(@people.people, @books.books)
+  end
+
+  def saving_exit
+      puts 'Saving'
+      persistor = Persistor.new
+      persistor.save(people: people, books: books, rentals: rentals)
   end
 
   def list_books

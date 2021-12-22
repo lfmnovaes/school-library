@@ -27,7 +27,7 @@ class App
       @options.each { |key, value| puts "#{key}) #{value}" }
       option = gets.chomp
       if option == '7'
-        save_exit
+        @handle_menu_choices.saving_exit
         break
       end
 
@@ -53,10 +53,6 @@ class App
       puts 'Not a valid option'
     end
   end
-end
-
-def save_exit
-  puts 'Saving'
 end
 
 def main
