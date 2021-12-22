@@ -3,11 +3,11 @@ require_relative 'corrector'
 require './rental'
 
 class Person
-  attr_accessor :name, :age, :rentals
+  attr_accessor :name, :age, :rentals, :parent_permission
   attr_reader :id
 
-  def initialize(age:, name: 'Unknown', parent_permission: true)
-    @id = SecureRandom.uuid
+  def initialize(id:, age:, name: 'Unknown', parent_permission: true)
+    @id = id || SecureRandom.uuid
     @name = name
     @age = age
     @parent_permission = parent_permission
@@ -29,6 +29,14 @@ class Person
 
   def to_s
     "Name: #{@name}, Age: #{@age}, ID: #{@id}"
+  end
+
+  def to_json(_options = {})
+    {
+      'id' => @id,
+      'age' => @age,
+      'name' => @name
+    }
   end
 
   private
