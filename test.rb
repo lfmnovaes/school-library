@@ -22,12 +22,12 @@ require 'json'
 # p.save(people: people, books: books, rentals: rentals)
 
 ppl = HandlePerson.new
-people = ppl.read_people_json
-puts people
+ppl.read_people_json
+puts ppl.people
 #puts ''
 
-b = HandleBooks.new
-books = b.read_books_json
+# b = HandleBooks.new
+# books = b.read_books_json
 #puts books
 #puts ''
 

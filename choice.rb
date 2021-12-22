@@ -82,16 +82,14 @@ class HandlePerson
   def read_people_json
     file = 'people.json'
     if File.exist? file
-      JSON.parse(File.read(file)).map do |p|
+      people_parse = JSON.parse(File.read(file))
+      people_parse.map do |p|
         person = JSON.parse(p)
-        puts person['id']
-
-        # if person['specialization'] == nil
-        #   create_student(person['id'], person['age'], person['name'], person['pp'].to_s)
-        #   #@people.push(Student.new(id: person['id'], name: person['name'], age: person['age'], parent_permission: person['pp']))
-        # else
-        #   create_teacher(person['id'], person['age'], person['name'], person['specialization'])
-        # end
+        if person['specialization'] == nil
+          create_student(person['id'], person['age'], person['name'], person['pp'].to_s)
+        else
+          create_teacher(person['id'], person['age'], person['name'], person['specialization'])
+        end
       end
     else
       []
