@@ -31,12 +31,12 @@ class Person
     "Name: #{@name}, Age: #{@age}, ID: #{@id}"
   end
 
-  def to_json(_options = {})
+  def to_json(*)
     {
       'id' => @id,
       'age' => @age,
       'name' => @name
-    }
+    }.to_json
   end
 
   private

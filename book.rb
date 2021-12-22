@@ -18,10 +18,10 @@ class Book
     "Title: \"#{title}\", Author: #{author}"
   end
 
-  def to_json(_options = {})
+  def to_json(*)
     {
       'title' => @title,
       'author' => @author
-    }
+    }.to_json
   end
 end
