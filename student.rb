@@ -1,4 +1,5 @@
 require_relative 'person'
+require 'json'
 
 class Student < Person
   attr_reader :classroom
@@ -19,5 +20,15 @@ class Student < Person
 
   def to_s
     "[Student] #{super}"
+  end
+
+  def to_json(options={})
+    {
+      'id' => @id,
+      'age' => @age,
+      'name' => @name,
+      'pp' => @parent_permission,
+      'classroom' => @classroom
+    }
   end
 end
