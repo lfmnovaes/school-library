@@ -1,17 +1,18 @@
 require './student'
 require './book'
 require './rental'
+require './persistor'
 
-student1 = Student.new(age: 14, name: 'Maria', parent_permission: false)
-student2 = Student.new(age: 17, name: 'John', parent_permission: true)
-book1 = Book.new("LOTR", "Tolkien")
-book2 = Book.new("42", "Lorem Ipsum")
-rental1 = Rental.new('2021-12-03', book1, student1)
-rental2 = Rental.new('2021-12-22', book1, student2)
-rental3 = Rental.new('2021-12-22', book2, student2)
+people = []
+people.push(Student.new(age: 14, name: 'Maria', parent_permission: false))
+people.push(Student.new(age: 17, name: 'John', parent_permission: true))
+books = []
+books.push(Book.new("LOTR", "Tolkien"))
+books.push(Book.new("42", "Lorem Ipsum"))
+rentals = []
+rentals.push(Rental.new('2021-12-03', books[0], people[0]))
+rentals.push(Rental.new('2021-12-22', books[0], people[1]))
+rentals.push(Rental.new('2021-12-22', books[1], people[1]))
 
-puts rental1.to_json
-puts ''
-puts rental2.to_json
-puts ''
-puts rental3.to_json
+p = Persistor.new
+p.save(people: people, books: books, rentals: rentals)
