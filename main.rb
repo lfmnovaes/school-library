@@ -1,4 +1,8 @@
 require './choice'
+require './book'
+require './rental'
+require './persistor'
+require 'json'
 
 class App
   def initialize
@@ -9,7 +13,7 @@ class App
       '4' => 'Create a book',
       '5' => 'Create a rental',
       '6' => 'List all rentals for a given person',
-      '7' => 'Exit'
+      '7' => 'Save and Exit'
     }
     @handle_menu_choices = HandleMenuChoice.new
   end
@@ -22,7 +26,10 @@ class App
       puts 'Please choose an option by eterin a number:'
       @options.each { |key, value| puts "#{key}) #{value}" }
       option = gets.chomp
-      break if option == '7'
+      if option == '7'
+        save_exit
+        break
+      end
 
       menu_choice option
     end
@@ -46,6 +53,10 @@ class App
       puts 'Not a valid option'
     end
   end
+end
+
+def save_exit
+  puts 'Saving'
 end
 
 def main

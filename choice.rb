@@ -2,6 +2,7 @@ require './student'
 require './teacher'
 require './book'
 require './rental'
+require 'json'
 
 class HandleMenuChoice
   def initialize
@@ -75,7 +76,16 @@ end
 
 class HandlePerson
   def initialize
-    @people = []
+    @people = read_people_json
+  end
+
+  def read_people_json
+    file = 'people.json'
+    if File.exist? file
+      JSON.parse(File.read(file))
+    else
+      []
+    end
   end
 
   def translate_answer(ans)
@@ -117,7 +127,16 @@ end
 
 class HandleBooks
   def initialize
-    @books = []
+    @books = read_books_json
+  end
+
+  def read_books_json
+    file = 'books.json'
+    if File.exist? file
+      JSON.parse(File.read(file))
+    else
+      []
+    end
   end
 
   def add_book(title, author)
@@ -147,7 +166,16 @@ end
 
 class HandleRentals
   def initialize
-    @rentals = []
+    @rentals = add_rental_json
+  end
+
+  def read_rentals_json
+    file = 'rentals.json'
+    if File.exist? file
+      JSON.parse(File.read(file))
+    else
+      []
+    end
   end
 
   def add_rental(date, book, person)
