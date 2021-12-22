@@ -2,20 +2,8 @@ require 'json'
 
 class Persistor
   def save(people:, books:, rentals:)
-    unless people.empty?
-      File.open('people.json', 'w') do |f|
-        f.write(JSON.generate(people.map { |p| p.to_json }))
-      end
-    end
-    unless books.empty?
-      File.open('books.json', 'w') do |f|
-        f.write(JSON.generate(books.map { |b| b.to_json }))
-      end
-    end
-    unless rentals.empty?
-      File.open('rentals.json', 'w') do |f|
-        f.write(JSON.generate(rentals.map { |r| r.to_json }))
-      end
-    end
+    File.open('people.json', 'w') { |f| f.write(JSON.generate(people.map(&:to_json))) } unless people.empty?
+    File.open('books.json', 'w') { |f| f.write(JSON.generate(books.map(&:to_json))) } unless books.empty?
+    File.open('rentals.json', 'w') { |f| f.write(JSON.generate(rentals.map(&:to_json))) } unless rentals.empty?
   end
 end

@@ -30,8 +30,8 @@ class Person
   def to_s
     "Name: #{@name}, Age: #{@age}, ID: #{@id}"
   end
-  
-  def to_json(options={})
+
+  def to_json(_options = {})
     {
       'id' => @id,
       'age' => @age,
