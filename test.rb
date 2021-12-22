@@ -2,6 +2,7 @@ require './student'
 require './book'
 require './rental'
 require './persistor'
+require 'json'
 
 people = []
 people.push(Student.new(age: 14, name: 'Maria', parent_permission: false))
@@ -13,6 +14,8 @@ rentals = []
 rentals.push(Rental.new('2021-12-03', books[0], people[0]))
 rentals.push(Rental.new('2021-12-22', books[0], people[1]))
 rentals.push(Rental.new('2021-12-22', books[1], people[1]))
+
+puts JSON.generate(rentals[0].to_json)
 
 p = Persistor.new
 p.save(people: people, books: books, rentals: rentals)
