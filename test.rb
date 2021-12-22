@@ -21,16 +21,16 @@ require 'json'
 # p = Persistor.new
 # p.save(people: people, books: books, rentals: rentals)
 
-ppl = HandlePerson.new
-ppl.read_people_json
-puts ppl.people
+people = HandlePerson.new
+people.read_people_json
+# puts people.people
+# #puts ''
+
+books = HandleBooks.new
+books.read_books_json
+# puts books.books
 #puts ''
 
-# b = HandleBooks.new
-# books = b.read_books_json
-#puts books
-#puts ''
-
-#r = HandleRentals.new
-#r.read_rentals_json(people, books)
-#puts r.all_rentals
+rentals = HandleRentals.new
+rentals.read_rentals_json(people.people, books.books)
+rentals.all_rentals

@@ -75,6 +75,7 @@ class HandleMenuChoice
 end
 
 class HandlePerson
+  attr_reader :people
   def initialize
     @people = []
   end
@@ -82,13 +83,11 @@ class HandlePerson
   def read_people_json
     file = 'people.json'
     if File.exist? file
-      people_parse = JSON.parse(File.read(file))
-      people_parse.map do |p|
-        person = JSON.parse(p)
-        if person['specialization'] == nil
-          create_student(person['id'], person['age'], person['name'], person['pp'].to_s)
+      JSON.parse(File.read(file)).map do |p|
+        if p['specialization'] == nil
+          create_student(p['id'], p['age'], p['name'], p['pp'].to_s)
         else
-          create_teacher(person['id'], person['age'], person['name'], person['specialization'])
+          create_teacher(p['id'], p['age'], p['name'], p['specialization'])
         end
       end
     else
@@ -134,14 +133,17 @@ class HandlePerson
 end
 
 class HandleBooks
+  attr_reader :books
   def initialize
-    @books = read_books_json
+    @books = []
   end
 
   def read_books_json
     file = 'books.json'
     if File.exist? file
-      JSON.parse(File.read(file), create_additions: true)
+      JSON.parse(File.read(file)).map do |b|
+        add_book(b['title'], b['author']) 
+      end  
     else
       []
     end
@@ -173,6 +175,7 @@ class HandleBooks
 end
 
 class HandleRentals
+  attr_reader :rentals
   def initialize
     @rentals = []
   end
@@ -181,10 +184,9 @@ class HandleRentals
     file = 'rentals.json'
     if File.exist? file
       JSON.parse(File.read(file)).map do |r|
-        #person = people.find { |p| p.id == r['person']['id'].to_i }
-        person = people.find { |p| puts p['id'] }
-        #book = books.find { |b| b.title == r['book']['title'] }
-        #@rentals.push(Rental.new(r['date'], book, person))
+        person = people.find { |p| p.id == r['person']['id'] }
+        book = books.find { |b| b.title == r['book']['title'] }
+        add_rental(r['date'], book, person)
       end
     else
       []
