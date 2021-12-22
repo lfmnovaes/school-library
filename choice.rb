@@ -76,13 +76,23 @@ end
 
 class HandlePerson
   def initialize
-    @people = read_people_json
+    @people = []
   end
 
   def read_people_json
     file = 'people.json'
     if File.exist? file
-      JSON.parse(File.read(file))
+      JSON.parse(File.read(file)).map do |p|
+        person = JSON.parse(p)
+        puts person['id']
+
+        # if person['specialization'] == nil
+        #   create_student(person['id'], person['age'], person['name'], person['pp'].to_s)
+        #   #@people.push(Student.new(id: person['id'], name: person['name'], age: person['age'], parent_permission: person['pp']))
+        # else
+        #   create_teacher(person['id'], person['age'], person['name'], person['specialization'])
+        # end
+      end
     else
       []
     end
@@ -92,12 +102,12 @@ class HandlePerson
     %w[yes y].include?(ans)
   end
 
-  def create_student(age, name, pp)
-    @people.push(Student.new(name: name, age: age, parent_permission: translate_answer(pp.downcase)))
+  def create_student(id, age, name, pp)
+    @people.push(Student.new(id: id, name: name, age: age, parent_permission: translate_answer(pp.downcase)))
   end
 
-  def create_teacher(age, name, specialization)
-    @people.push(Teacher.new(name: name, age: age, specialization: specialization))
+  def create_teacher(id, age, name, specialization)
+    @people.push(Teacher.new(id: id, name: name, age: age, specialization: specialization))
   end
 
   def list_people
@@ -133,7 +143,7 @@ class HandleBooks
   def read_books_json
     file = 'books.json'
     if File.exist? file
-      JSON.parse(File.read(file))
+      JSON.parse(File.read(file), create_additions: true)
     else
       []
     end
@@ -166,13 +176,18 @@ end
 
 class HandleRentals
   def initialize
-    @rentals = add_rental_json
+    @rentals = []
   end
 
-  def read_rentals_json
+  def read_rentals_json(people = [], books = [])
     file = 'rentals.json'
     if File.exist? file
-      JSON.parse(File.read(file))
+      JSON.parse(File.read(file)).map do |r|
+        #person = people.find { |p| p.id == r['person']['id'].to_i }
+        person = people.find { |p| puts p['id'] }
+        #book = books.find { |b| b.title == r['book']['title'] }
+        #@rentals.push(Rental.new(r['date'], book, person))
+      end
     else
       []
     end
@@ -186,5 +201,9 @@ class HandleRentals
     puts ''
     puts 'Rentals:'
     @rentals.each { |rental| puts rental if rental.person.id == person_id }
+  end
+
+  def all_rentals
+    @rentals.each { |rental| puts rental }
   end
 end

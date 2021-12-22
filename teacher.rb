@@ -2,8 +2,9 @@ require_relative 'person'
 require 'json'
 
 class Teacher < Person
-  def initialize(specialization:, age:, name: 'Unknown', parent_permission: true)
-    super(age: age, name: name, parent_permission: parent_permission)
+  def initialize(id:, age:, name: 'Unknown', specialization:)
+    super(id: id, age: age, name: name)
+    @parent_permission = true
     @specialization = specialization
   end
 
