@@ -2,6 +2,8 @@ require_relative 'person'
 require 'json'
 
 class Teacher < Person
+  attr_accessor :specialization
+
   def initialize(id:, age:, specialization:, name: 'Unknown')
     super(id: id, age: age, name: name)
     @parent_permission = true
